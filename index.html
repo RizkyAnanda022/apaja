@@ -1,0 +1,2155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>A Little Universe for Azka ♡</title>
+
+    <!-- BOOTSTRAP 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+    <!-- BOOTSTRAP ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --bg: #080d1b;
+            --bg2: #101a30;
+            --accent: #d9c6ff;
+            --primary: #a9b9e9;
+            --text: #e9edfa;
+            --muted: #a1abc5;
+            --border: rgba(217,198,255,.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        body.locked {
+            overflow: hidden;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .subtitle {
+            color: var(--primary);
+            letter-spacing: 4px;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 105px 0;
+        }
+
+        /* STARS */
+
+        #stars {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: .2; }
+            50% { opacity: 1; }
+        }
+
+        /* OPENING */
+
+        #opening {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 25px;
+            background:
+                radial-gradient(ellipse at center,
+                #1b294a 0%, #0b1225 55%, #050914 100%);
+            transition: opacity 1.3s ease, visibility 1.3s ease;
+        }
+
+        #opening.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .opening-content {
+            max-width: 550px;
+            animation: fadeUp 1.5s ease;
+        }
+
+        .opening-moon {
+            font-size: 85px;
+            color: #f3e8c8;
+            filter: drop-shadow(0 0 30px rgba(240,220,180,.5));
+            animation: float 5s infinite ease-in-out;
+        }
+
+        .opening-title {
+            font-size: clamp(35px, 7vw, 58px);
+            margin: 25px 0;
+        }
+
+        .opening-title span {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .opening-description {
+            color: var(--muted);
+            line-height: 2;
+            font-size: 14px;
+        }
+
+        .enter-button {
+            margin-top: 30px;
+            padding: 14px 34px;
+            border-radius: 50px;
+            border: 1px solid rgba(217,198,255,.5);
+            color: white;
+            background: rgba(217,198,255,.08);
+            transition: .4s;
+        }
+
+        .enter-button:hover {
+            background: var(--accent);
+            color: #101426;
+            transform: translateY(-4px);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: rgba(8,13,27,.88);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent) !important;
+            font-size: 21px;
+        }
+
+        .nav-link {
+            color: var(--muted) !important;
+            font-size: 12px;
+            margin-left: 12px;
+            transition: .3s;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+        }
+
+        /* SCROLL REVEAL */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .9s ease, transform .9s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            background:
+                radial-gradient(ellipse at center,
+                rgba(70,82,145,.22), transparent 65%);
+        }
+
+        .hero-moon {
+            font-size: 85px;
+            color: #f2e9c9;
+            filter: drop-shadow(0 0 25px rgba(240,220,180,.4));
+            margin-bottom: 30px;
+            display: inline-block;
+            animation: float 5s infinite ease-in-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 8vw, 76px);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .hero p {
+            max-width: 550px;
+            margin: auto;
+            line-height: 2;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .btn-dream {
+            border: 1px solid rgba(217,198,255,.5);
+            background: rgba(217,198,255,.08);
+            color: white;
+            border-radius: 50px;
+            padding: 13px 28px;
+            margin-top: 25px;
+            transition: .3s;
+        }
+
+        .btn-dream:hover {
+            background: var(--accent);
+            color: #101426;
+            transform: translateY(-3px);
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: 3px;
+        }
+
+        /* MUSIC */
+
+        .music-card {
+            max-width: 650px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            background: linear-gradient(145deg,
+                rgba(255,255,255,.065),
+                rgba(255,255,255,.02));
+        }
+
+        .music-art {
+            width: 90px;
+            height: 90px;
+            border-radius: 18px;
+            background: linear-gradient(145deg,#414b75,#11172c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            color: #e7ddf7;
+        }
+
+        .music-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 21px;
+        }
+
+        .music-artist {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .visualizer {
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            margin: 20px 0;
+        }
+
+        .visualizer span {
+            width: 4px;
+            height: 7px;
+            border-radius: 5px;
+            background: var(--accent);
+        }
+
+        .visualizer.playing span {
+            animation: wave .8s infinite alternate ease-in-out;
+        }
+
+        .visualizer span:nth-child(2n) {
+            animation-delay: .2s;
+        }
+
+        .visualizer span:nth-child(3n) {
+            animation-delay: .4s;
+        }
+
+        @keyframes wave {
+            from { height: 5px; opacity: .4; }
+            to { height: 30px; opacity: 1; }
+        }
+
+        .music-button {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            background: rgba(217,198,255,.1);
+            color: white;
+            font-size: 20px;
+        }
+
+        .music-button:hover {
+            background: var(--accent);
+            color: #101426;
+        }
+
+        .music-status {
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: 2px;
+        }
+
+        /* INTRO */
+
+        .glass-card {
+            background: rgba(255,255,255,.035);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 25px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .glass-card p {
+            color: var(--muted);
+            line-height: 2;
+            font-size: 14px;
+        }
+
+        /* LITTLE THINGS */
+
+        .little-card {
+            height: 100%;
+            background: rgba(255,255,255,.035);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 20px;
+            padding: 30px 25px;
+            transition: .35s;
+        }
+
+        .little-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(217,198,255,.4);
+        }
+
+        .little-card i {
+            font-size: 30px;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .little-card h5 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 12px;
+        }
+
+        .little-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        /* CONSTELLATION */
+
+        .constellation-section {
+            background: radial-gradient(ellipse at center,
+                rgba(72,85,155,.12), transparent 70%);
+        }
+
+        .sky-card {
+            position: relative;
+            max-width: 750px;
+            height: 380px;
+            margin: 35px auto 0;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 50% 50%,
+                #172444, #0b1327 75%);
+        }
+
+        .sky-card::before,
+        .sky-card::after {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border: 1px solid rgba(217,198,255,.06);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+
+        .sky-card::after {
+            width: 450px;
+            height: 450px;
+        }
+
+        .constellation-line {
+            position: absolute;
+            height: 1px;
+            background: rgba(217,198,255,.18);
+            transform-origin: left;
+            pointer-events: none;
+        }
+
+        .constellation-star {
+            position: absolute;
+            z-index: 2;
+            width: 15px;
+            height: 15px;
+            border: none;
+            border-radius: 50%;
+            background: #fff4d6;
+            box-shadow: 0 0 10px 3px rgba(217,198,255,.65);
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .constellation-star:hover {
+            transform: scale(1.7);
+            box-shadow: 0 0 20px 7px rgba(217,198,255,.5);
+        }
+
+        .constellation-star::after {
+            content: "";
+            position: absolute;
+            inset: -10px;
+            border: 1px solid rgba(217,198,255,.35);
+            border-radius: 50%;
+            animation: pulse 2.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(.7); opacity: 1; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+
+        .sky-hint {
+            position: absolute;
+            bottom: 22px;
+            width: 100%;
+            text-align: center;
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: 2px;
+            z-index: 3;
+        }
+
+        .star-message {
+            max-width: 550px;
+            min-height: 100px;
+            margin: 25px auto 0;
+            padding: 25px;
+            text-align: center;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.035);
+        }
+
+        .star-message p {
+            color: var(--muted);
+            line-height: 1.9;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .star-message h5 {
+            color: var(--accent);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+        }
+
+        /* LETTER */
+
+        .letter-box {
+            max-width: 750px;
+            margin: auto;
+            padding: 45px;
+            border-radius: 25px;
+            background: linear-gradient(145deg,
+                rgba(255,255,255,.07),
+                rgba(255,255,255,.025));
+            border: 1px solid var(--border);
+        }
+
+        .letter-box p {
+            color: #c4cce0;
+            line-height: 2.1;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .signature {
+            color: var(--accent) !important;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px !important;
+            font-style: italic;
+            margin-top: 35px;
+        }
+
+        /* SEALED LETTERS */
+
+        .letter-card {
+            height: 100%;
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            background: rgba(255,255,255,.035);
+            border: 1px solid var(--border);
+            transition: .3s;
+        }
+
+        .letter-card:hover {
+            transform: translateY(-6px);
+            background: rgba(217,198,255,.07);
+        }
+
+        .letter-card i {
+            font-size: 32px;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .letter-card h5 {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .letter-card p {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .letter-open {
+            color: var(--accent);
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            background: none;
+            border: none;
+            border-bottom: 1px solid rgba(217,198,255,.4);
+            padding-bottom: 4px;
+        }
+
+        /* PROMISES */
+
+        .promise-box {
+            max-width: 700px;
+            margin: auto;
+            padding: 35px;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            background: rgba(255,255,255,.035);
+        }
+
+        .promise-item {
+            display: flex;
+            gap: 18px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,.07);
+        }
+
+        .promise-item:last-child {
+            border-bottom: none;
+        }
+
+        .promise-item i {
+            color: var(--accent);
+            font-size: 21px;
+            flex-shrink: 0;
+        }
+
+        .promise-item h6 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 7px;
+        }
+
+        .promise-item p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        /* ENDING */
+
+        .ending {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(ellipse at center,
+                rgba(82,77,147,.19), transparent 70%);
+        }
+
+        .ending-moon {
+            font-size: 75px;
+            color: #f2e9c9;
+            filter: drop-shadow(0 0 25px rgba(240,220,180,.4));
+        }
+
+        .ending h2 {
+            font-size: clamp(30px, 6vw, 52px);
+            line-height: 1.5;
+        }
+
+        .ending h2 span {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .ending-message {
+            max-width: 540px;
+            margin: 25px auto;
+            color: var(--muted);
+            line-height: 2;
+            font-size: 14px;
+        }
+
+        .final-heart {
+            font-size: 30px;
+            color: #d8a9c8;
+            animation: heartbeat 1.8s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* MODAL */
+
+        .modal-content {
+            background: #111a30;
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--border);
+        }
+
+        .modal-body {
+            padding: 30px;
+            color: #c4cce0;
+            line-height: 2;
+            font-size: 14px;
+            white-space: pre-line;
+        }
+
+        .btn-close {
+            filter: invert(1);
+        }
+
+        /* FOOTER */
+
+        footer {
+            position: relative;
+            z-index: 1;
+            padding: 45px 15px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,.06);
+        }
+
+        footer p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.9;
+        }
+
+        /* BACK TO TOP */
+
+        .top-button {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #b7a8e5;
+            color: #101426;
+            border: none;
+            display: none;
+            z-index: 200;
+        }
+
+        @media(max-width:768px) {
+            section {
+                padding: 75px 0;
+            }
+
+            .glass-card,
+            .letter-box {
+                padding: 27px 22px;
+            }
+
+            .sky-card {
+                height: 320px;
+            }
+
+            .promise-box {
+                padding: 22px;
+            }
+
+            .music-card {
+                padding: 22px 17px;
+            }
+
+            .nav-link {
+                margin-left: 0;
+                padding: 9px 0;
+            }
+
+            .ending {
+                min-height: 75vh;
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="locked">
+
+<!-- OPENING SCREEN -->
+
+<div id="opening">
+    <div class="opening-content">
+
+        <div class="opening-moon">☾</div>
+
+        <div class="subtitle">
+            A little universe made for you
+        </div>
+
+        <h1 class="opening-title serif">
+            For you,<br>
+            <span>Azka my lovely.</span>
+        </h1>
+
+        <p class="opening-description">
+            Before you enter my little universe,
+            there's something I want you to hear.
+
+            <br><br>
+
+            Take a little breath,
+            put on your headphones,
+            and let me tell you something.
+        </p>
+
+        <button class="enter-button" id="enterButton">
+            Enter my universe
+            <i class="bi bi-stars ms-2"></i>
+        </button>
+
+        <div class="subtitle mt-4" style="font-size:9px">
+            BEST EXPERIENCED WITH HEADPHONES ♡
+        </div>
+
+    </div>
+</div>
+
+
+<!-- BACKGROUND STARS -->
+
+<div id="stars"></div>
+
+
+<!-- YOUTUBE PLAYER -->
+
+<div style="position:fixed;left:-10000px;top:0;
+            width:356px;height:200px;overflow:hidden;
+            pointer-events:none">
+
+    <div id="youtubePlayer"></div>
+
+</div>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="#home">
+            <i class="bi bi-stars"></i> For Azka
+        </a>
+
+        <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#menu">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#music">Music</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">A Note</a></li>
+                <li class="nav-item"><a class="nav-link" href="#sky">Our Sky</a></li>
+                <li class="nav-item"><a class="nav-link" href="#letters">Letters</a></li>
+                <li class="nav-item"><a class="nav-link" href="#promises">Promises</a></li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="container reveal">
+
+        <div class="hero-moon">☾</div>
+
+        <div class="subtitle mb-3">
+            A little universe made for you
+        </div>
+
+        <h1 class="serif">
+            Hey, <span>Azka</span><br>
+            my lovely.
+        </h1>
+
+        <p>
+            If I could send you a little piece of the night sky,
+            I would. But for now, I made you this little corner
+            of the universe.
+        </p>
+
+        <a href="#music" class="btn btn-dream">
+            Explore our little universe
+            <i class="bi bi-arrow-down ms-2"></i>
+        </a>
+
+    </div>
+
+    <div class="scroll-down">SCROLL TO EXPLORE ↓</div>
+
+</section>
+
+
+<!-- MUSIC -->
+
+<section id="music">
+
+    <div class="container">
+
+        <div class="text-center mb-5 reveal">
+
+            <div class="subtitle mb-3">A song for you</div>
+
+            <h2 class="serif display-5">
+                Our little soundtrack.
+            </h2>
+
+            <p class="muted mt-3">
+                Some feelings are easier to express through music.
+            </p>
+
+        </div>
+
+        <div class="music-card reveal">
+
+            <div class="d-flex align-items-center gap-4 flex-wrap">
+
+                <div class="music-art">
+                    <i class="bi bi-moon-stars"></i>
+                </div>
+
+                <div>
+                    <div class="music-title">
+                        Nothing's Gonna Hurt You Baby
+                    </div>
+
+                    <div class="music-artist">
+                        Cigarettes After Sex
+                    </div>
+
+                    <div class="subtitle mt-2"
+                        style="font-size:9px">
+                        A LITTLE SONG FOR AZKA ♡
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="visualizer" id="visualizer">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+            </div>
+
+            <div class="text-center">
+
+                <button class="music-button" id="playButton"
+                    onclick="toggleMusic()"
+                    aria-label="Play or pause music">
+
+                    <i class="bi bi-pause-fill" id="playIcon"></i>
+
+                </button>
+
+                <div class="music-status mt-3" id="musicStatus">
+                    MUSIC IS PLAYING ♡
+                </div>
+
+            </div>
+
+            <p class="text-center muted mt-4"
+                style="font-size:11px">
+
+                <a href="https://www.youtube.com/watch?v=QI8VrXkffcg"
+                    target="_blank" rel="noopener noreferrer"
+                    style="color:var(--accent)">
+
+                    Listen directly on YouTube
+                    <i class="bi bi-box-arrow-up-right"></i>
+
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- INTRO -->
+
+<section id="about">
+
+    <div class="container">
+
+        <div class="glass-card text-center reveal">
+
+            <div class="subtitle mb-3">Before you continue</div>
+
+            <h2 class="serif mb-4"
+                style="color:var(--accent)">
+                A little note for you.
+            </h2>
+
+            <p>
+                Hi, Azka. I don't really know how to put everything
+                into words sometimes, but I wanted to make something
+                special for you.
+
+                <br><br>
+
+                This isn't just another website. It's a small reminder
+                that someone out here appreciates you, thinks about
+                you, and is grateful to have you around.
+
+                <br><br>
+
+                So take your time, read everything slowly,
+                and I hope this little surprise makes your day
+                a little brighter.
+            </p>
+
+            <div class="mt-4" style="color:var(--accent)">
+                ✦ Made with a little thought and affection ✦
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LITTLE THINGS -->
+
+<section id="little">
+
+    <div class="container">
+
+        <div class="text-center mb-5 reveal">
+
+            <div class="subtitle mb-3">Things worth appreciating</div>
+
+            <h2 class="serif display-5">
+                Little things about you.
+            </h2>
+
+            <p class="muted mt-3">
+                Sometimes the smallest things mean the most.
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-4 reveal">
+                <div class="little-card">
+                    <i class="bi bi-stars"></i>
+                    <h5>Your Presence</h5>
+                    <p>
+                        Even the simplest conversations with you
+                        can become something I remember.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4 reveal">
+                <div class="little-card">
+                    <i class="bi bi-moon-stars"></i>
+                    <h5>Your Little Stories</h5>
+                    <p>
+                        I like hearing about your day, your random
+                        thoughts, and all those little things you share.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4 reveal">
+                <div class="little-card">
+                    <i class="bi bi-heart"></i>
+                    <h5>Being You</h5>
+                    <p>
+                        You don't have to be perfect to be appreciated.
+                        Just being yourself is enough.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONSTELLATION -->
+
+<section class="constellation-section" id="sky">
+
+    <div class="container">
+
+        <div class="text-center reveal">
+
+            <div class="subtitle mb-3">Somewhere in the universe</div>
+
+            <h2 class="serif display-5">
+                Our little constellation.
+            </h2>
+
+            <p class="muted mt-3">
+                Every star has a little something I want to tell you.
+                <br>
+                Try touching them.
+            </p>
+
+        </div>
+
+
+        <div class="sky-card reveal" id="skyCard">
+
+            <!-- CONSTELLATION LINES -->
+
+            <div class="constellation-line"
+                style="left:16%;top:27%;width:32%;transform:rotate(18deg)">
+            </div>
+
+            <div class="constellation-line"
+                style="left:48%;top:37%;width:32%;transform:rotate(-27deg)">
+            </div>
+
+            <div class="constellation-line"
+                style="left:26%;top:68%;width:44%;transform:rotate(-15deg)">
+            </div>
+
+
+            <!-- CLICKABLE STARS -->
+
+            <button class="constellation-star"
+                style="left:15%;top:25%"
+                aria-label="First star"
+                onclick="showStar(0)">
+            </button>
+
+            <button class="constellation-star"
+                style="left:47%;top:35%"
+                aria-label="Second star"
+                onclick="showStar(1)">
+            </button>
+
+            <button class="constellation-star"
+                style="left:78%;top:22%"
+                aria-label="Third star"
+                onclick="showStar(2)">
+            </button>
+
+            <button class="constellation-star"
+                style="left:25%;top:66%"
+                aria-label="Fourth star"
+                onclick="showStar(3)">
+            </button>
+
+            <button class="constellation-star"
+                style="left:68%;top:53%"
+                aria-label="Fifth star"
+                onclick="showStar(4)">
+            </button>
+
+            <button class="constellation-star"
+                style="left:83%;top:75%"
+                aria-label="Sixth star"
+                onclick="showStar(5)">
+            </button>
+
+            <div class="sky-hint">
+                TOUCH A STAR TO DISCOVER A MESSAGE ✦
+            </div>
+
+        </div>
+
+
+        <!-- STAR MESSAGE -->
+
+        <div class="star-message reveal" id="starMessage">
+
+            <h5 id="starTitle">
+                A little secret
+            </h5>
+
+            <p id="starText">
+                Choose a star above. I have something to tell you.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MAIN LETTER -->
+
+<section id="letter">
+
+    <div class="container">
+
+        <div class="text-center mb-5 reveal">
+
+            <div class="subtitle mb-3">Something from my heart</div>
+
+            <h2 class="serif display-5">
+                A letter for you.
+            </h2>
+
+        </div>
+
+
+        <div class="letter-box reveal">
+
+            <div class="text-center mb-4">
+
+                <i class="bi bi-envelope-heart"
+                    style="font-size:38px;color:var(--accent)">
+                </i>
+
+            </div>
+
+            <h3 class="serif mb-4"
+                style="color:var(--accent)">
+                Dear Azka,
+            </h3>
+
+            <p>
+                I know things haven't felt the same lately,
+                especially when it comes to our communication.
+                Maybe there are times when I seem distant,
+                reply less, or don't really know how to express
+                what I'm feeling.
+            </p>
+
+            <p>
+                And I'm sorry if that has ever made you feel
+                like you're the only one trying, or that you
+                have to wait for me just to talk about your day.
+                I never wanted you to feel that way.
+            </p>
+
+            <p>
+                I don't want you to think that I'm bored of you
+                or that I've suddenly lost my feelings.
+                Sometimes I might not be the best at showing
+                how much I appreciate someone, but that doesn't
+                mean I don't care.
+            </p>
+
+            <p>
+                I still want to hear your stories, even the
+                random ones. I still want to know how your day
+                went, what made you happy, what bothered you,
+                and all those little things you might think
+                are unimportant.
+            </p>
+
+            <p>
+                I also know that saying sorry isn't enough
+                if nothing changes afterwards. I want to do
+                better, communicate better, and make sure
+                you don't feel like you're carrying everything
+                on your own.
+            </p>
+
+            <p>
+                I don't expect us to be perfect.
+                I just hope we can be honest with each other,
+                understand one another, and keep choosing to
+                work things out instead of making assumptions.
+            </p>
+
+            <p>
+                Thank you for telling me how you feel.
+                Your feelings matter, and I don't want you
+                to feel like you have to keep everything
+                to yourself.
+            </p>
+
+            <p>
+                And Azka, please remember that you don't
+                have to question whether you're worth
+                someone's time and affection.
+            </p>
+
+            <p class="signature">
+                With love,<br>
+                Your mas ♡
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- OPEN WHEN LETTERS -->
+
+<section id="letters">
+
+    <div class="container">
+
+        <div class="text-center mb-5 reveal">
+
+            <div class="subtitle mb-3">A few words for different days</div>
+
+            <h2 class="serif display-5">
+                Open when...
+            </h2>
+
+            <p class="muted mt-3">
+                I can't always be beside you,
+                but I hope these little letters can keep you company.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-md-6 col-lg-3 reveal">
+
+                <div class="letter-card">
+
+                    <i class="bi bi-heart"></i>
+
+                    <h5>You miss me</h5>
+
+                    <p>
+                        For the moments when distance feels a little
+                        too big.
+                    </p>
+
+                    <button class="letter-open"
+                        onclick="openLetter(0)">
+                        OPEN LETTER →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3 reveal">
+
+                <div class="letter-card">
+
+                    <i class="bi bi-cloud-rain"></i>
+
+                    <h5>You're having a bad day</h5>
+
+                    <p>
+                        A little reminder that difficult days
+                        don't last forever.
+                    </p>
+
+                    <button class="letter-open"
+                        onclick="openLetter(1)">
+                        OPEN LETTER →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3 reveal">
+
+                <div class="letter-card">
+
+                    <i class="bi bi-stars"></i>
+
+                    <h5>You need reassurance</h5>
+
+                    <p>
+                        For the days when you need to hear
+                        something comforting.
+                    </p>
+
+                    <button class="letter-open"
+                        onclick="openLetter(2)">
+                        OPEN LETTER →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3 reveal">
+
+                <div class="letter-card">
+
+                    <i class="bi bi-moon-stars"></i>
+
+                    <h5>You can't sleep</h5>
+
+                    <p>
+                        A quiet little message for your
+                        late-night thoughts.
+                    </p>
+
+                    <button class="letter-open"
+                        onclick="openLetter(3)">
+                        OPEN LETTER →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LETTER MODAL -->
+
+<div class="modal fade" id="letterModal" tabindex="-1"
+    aria-labelledby="modalTitle" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title serif"
+                    id="modalTitle">
+                    A letter for you
+                </h5>
+
+                <button type="button" class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close">
+                </button>
+
+            </div>
+
+            <div class="modal-body" id="modalText"></div>
+
+            <div class="modal-footer">
+
+                <button type="button"
+                    class="btn btn-dream mt-0"
+                    data-bs-dismiss="modal">
+                    Keep this close ♡
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- PROMISES -->
+
+<section id="promises">
+
+    <div class="container">
+
+        <div class="text-center mb-5 reveal">
+
+            <div class="subtitle mb-3">Not just words</div>
+
+            <h2 class="serif display-5">
+                Little promises.
+            </h2>
+
+            <p class="muted mt-3">
+                Not promises of perfection, just things
+                I genuinely want to work on.
+            </p>
+
+        </div>
+
+
+        <div class="promise-box reveal">
+
+            <div class="promise-item">
+
+                <i class="bi bi-chat-heart"></i>
+
+                <div>
+
+                    <h6>I'll communicate better.</h6>
+
+                    <p>
+                        I don't want you to keep guessing what's
+                        going on with me. I'll try to be more open
+                        and let you know when I need some time.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="promise-item">
+
+                <i class="bi bi-ear"></i>
+
+                <div>
+
+                    <h6>I'll listen to you.</h6>
+
+                    <p>
+                        Your feelings deserve to be heard.
+                        I want you to feel comfortable telling me
+                        when something bothers you.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="promise-item">
+
+                <i class="bi bi-clock-history"></i>
+
+                <div>
+
+                    <h6>I'll make time for us.</h6>
+
+                    <p>
+                        I know we both have our own lives,
+                        but I don't want our connection to become
+                        something we only remember when convenient.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="promise-item">
+
+                <i class="bi bi-heart"></i>
+
+                <div>
+
+                    <h6>I'll be honest with you.</h6>
+
+                    <p>
+                        I'd rather have an honest conversation
+                        than leave you wondering about what I feel.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="promise-item">
+
+                <i class="bi bi-stars"></i>
+
+                <div>
+
+                    <h6>I'll keep making an effort.</h6>
+
+                    <p>
+                        I know words are easy. I want my actions
+                        to show that I appreciate what we have.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <p class="text-center muted mt-4 reveal"
+            style="font-size:12px">
+
+            These aren't promises to be perfect.
+            They're promises to keep learning.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- FINAL ENDING -->
+
+<section class="ending" id="ending">
+
+    <div class="container reveal">
+
+        <div class="ending-moon mb-4">☾</div>
+
+        <div class="subtitle mb-4">
+            The last page of this little universe
+        </div>
+
+        <h2 class="serif">
+            In this endless universe,<br>
+            <span>I'm glad I found you.</span>
+        </h2>
+
+        <p class="ending-message">
+
+            Maybe I can't always find the perfect words.
+            Maybe I won't always get everything right.
+
+            <br><br>
+
+            But I hope you never forget that you're appreciated,
+            that your feelings matter, and that the little things
+            you share with me are never meaningless.
+
+            <br><br>
+
+            Wherever life takes us, I'm grateful that our paths
+            crossed.
+
+        </p>
+
+        <div class="final-heart mb-4">
+            <i class="bi bi-heart-fill"></i>
+        </div>
+
+        <p class="serif"
+            style="font-size:20px;color:var(--accent)">
+            You're my favorite part of this little universe.
+        </p>
+
+        <p class="muted mt-4" style="font-size:12px">
+            With love, always. ♡
+        </p>
+
+        <a href="#home" class="btn btn-dream">
+            Back to the beginning
+            <i class="bi bi-arrow-up ms-2"></i>
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div style="font-size:28px;color:var(--accent)"
+        class="mb-3">
+        ☾
+    </div>
+
+    <p class="serif"
+        style="font-size:20px;color:#e9edfa">
+        Somewhere under the same sky.
+    </p>
+
+    <p>
+        Made especially for Azka my lovely.
+
+        <br>
+
+        A little universe, made with affection.
+    </p>
+
+    <p class="mt-4">
+        © <span id="year"></span> · Made with
+        <span style="color:#d8a9c8">♥</span>
+    </p>
+
+</footer>
+
+
+<!-- BACK TO TOP -->
+
+<button class="top-button" id="topButton"
+    onclick="window.scrollTo({top:0,behavior:'smooth'})">
+
+    <i class="bi bi-arrow-up"></i>
+
+</button>
+
+
+<!-- BOOTSTRAP JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- YOUTUBE API -->
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
+
+<script>
+
+    // ===================================
+    // 1. BACKGROUND STARS
+    // ===================================
+
+    const starContainer = document.getElementById('stars');
+
+    for (let i = 0; i < 120; i++) {
+
+        const star = document.createElement('div');
+
+        star.className = 'star';
+
+        const size = Math.random() * 3 + 1;
+
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+
+        star.style.animationDelay =
+            Math.random() * 4 + 's';
+
+        star.style.animationDuration =
+            (Math.random() * 3 + 2) + 's';
+
+        starContainer.appendChild(star);
+
+    }
+
+
+    // ===================================
+    // 2. YOUTUBE MUSIC PLAYER
+    // ===================================
+
+    let player;
+    let playerReady = false;
+    let musicRequested = false;
+
+    const videoID = 'QI8VrXkffcg';
+
+
+    function onYouTubeIframeAPIReady() {
+
+        player = new YT.Player('youtubePlayer', {
+
+            width: '356',
+            height: '200',
+
+            videoId: videoID,
+
+            playerVars: {
+                autoplay: 0,
+                controls: 0,
+                playsinline: 1,
+                rel: 0,
+                loop: 1,
+                playlist: videoID
+            },
+
+            events: {
+
+                onReady: function() {
+
+                    playerReady = true;
+
+                    if (musicRequested) {
+                        player.playVideo();
+                    }
+
+                },
+
+                onStateChange: function(event) {
+
+                    if (event.data === YT.PlayerState.PLAYING) {
+                        updateMusicUI(true);
+                    }
+
+                    if (
+                        event.data === YT.PlayerState.PAUSED ||
+                        event.data === YT.PlayerState.ENDED
+                    ) {
+                        updateMusicUI(false);
+                    }
+
+                },
+
+                onError: function() {
+
+                    document.getElementById('musicStatus')
+                        .textContent =
+                        'Music unavailable. Try YouTube directly.';
+
+                    updateMusicUI(false);
+
+                }
+
+            }
+
+        });
+
+    }
+
+
+    // ===================================
+    // 3. OPENING SCREEN
+    // ===================================
+
+    document.getElementById('enterButton')
+        .addEventListener('click', function() {
+
+            musicRequested = true;
+
+            document.getElementById('opening')
+                .classList.add('hide');
+
+            document.body.classList.remove('locked');
+
+            if (playerReady) {
+                player.playVideo();
+            } else {
+                document.getElementById('musicStatus')
+                    .textContent = 'MUSIC IS LOADING...';
+            }
+
+        });
+
+
+    // ===================================
+    // 4. PLAY / PAUSE MUSIC
+    // ===================================
+
+    function toggleMusic() {
+
+        if (!playerReady || !player) {
+
+            document.getElementById('musicStatus')
+                .textContent = 'MUSIC IS STILL LOADING...';
+
+            return;
+
+        }
+
+        const state = player.getPlayerState();
+
+        if (state === YT.PlayerState.PLAYING) {
+
+            player.pauseVideo();
+
+        } else {
+
+            player.playVideo();
+
+        }
+
+    }
+
+
+    function updateMusicUI(playing) {
+
+        const icon = document.getElementById('playIcon');
+        const visualizer = document.getElementById('visualizer');
+        const status = document.getElementById('musicStatus');
+
+        if (playing) {
+
+            icon.className = 'bi bi-pause-fill';
+
+            visualizer.classList.add('playing');
+
+            status.textContent = 'MUSIC IS PLAYING ♡';
+
+        } else {
+
+            icon.className = 'bi bi-play-fill';
+
+            visualizer.classList.remove('playing');
+
+            status.textContent = 'MUSIC PAUSED';
+
+        }
+
+    }
+
+
+    // ===================================
+    // 5. SCROLL REVEAL
+    // ===================================
+
+    const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add('visible');
+
+                observer.unobserve(entry.target);
+
+            }
+
+        });
+
+    }, {
+        threshold: 0.12
+    });
+
+
+    document.querySelectorAll('.reveal').forEach(element => {
+
+        observer.observe(element);
+
+    });
+
+
+    // ===================================
+    // 6. CONSTELLATION MESSAGES
+    // ===================================
+
+    const starMessages = [
+
+        {
+            title: "Your presence ✦",
+            text: "You might not realize it, but your presence can make an ordinary day feel a little more special. I'm glad you're here."
+        },
+
+        {
+            title: "Your little stories ✦",
+            text: "I want to hear about your random thoughts, your day, your little achievements, and even the things you think are unimportant."
+        },
+
+        {
+            title: "You matter ✦",
+            text: "You don't have to do anything extraordinary to deserve appreciation. You are already someone worth appreciating."
+        },
+
+        {
+            title: "Distance ✦",
+            text: "Even when we're not in the same place, I hope we can still make time to understand each other and stay connected."
+        },
+
+        {
+            title: "A little reminder ✦",
+            text: "Please don't feel like you have to hide your feelings from me. I want us to be able to talk about the good things and the difficult ones."
+        },
+
+        {
+            title: "My favorite star ✦",
+            text: "Out of all the stars in this little universe, this one reminds me of you. Not because it's perfect, but because it's special to me."
+        }
+
+    ];
+
+
+    function showStar(index) {
+
+        const title = document.getElementById('starTitle');
+        const text = document.getElementById('starText');
+
+        title.textContent = starMessages[index].title;
+        text.textContent = starMessages[index].text;
+
+        const message = document.getElementById('starMessage');
+
+        message.style.animation = 'none';
+
+        void message.offsetWidth;
+
+        message.style.animation = 'fadeUp .6s ease';
+
+    }
+
+
+    // ===================================
+    // 7. OPEN WHEN LETTERS
+    // ===================================
+
+    const letters = [
+
+        {
+            title: "Open when you miss me ♡",
+
+            text: `Hi, Azka.
+
+I wish I could be there with you right now, even if it was just to spend a little time together.
+
+I know distance isn't always easy. Sometimes all we want is a little more time, a little more attention, or simply someone to talk to.
+
+But I hope you know that being apart doesn't make the little moments we share meaningless.
+
+If you miss me, tell me. I'd love to hear from you.
+
+Sending you a little affection from wherever I am. ♡`
+        },
+
+        {
+            title: "Open when you're having a bad day ♡",
+
+            text: `Hey, you.
+
+I don't know exactly how your day has been, but I hope you remember that one difficult day doesn't define everything.
+
+You don't have to pretend to be okay all the time.
+
+Take things slowly. Give yourself some room to breathe.
+
+And if you feel like talking about it, I'm willing to listen.
+
+You deserve kindness, especially from yourself. ♡`
+        },
+
+        {
+            title: "Open when you need reassurance ♡",
+
+            text: `Azka, listen.
+
+You don't have to keep wondering whether your feelings matter.
+
+I appreciate you, and I appreciate the effort you put into us.
+
+I know I haven't always shown that as well as I should have.
+
+But I want you to know that I still want to communicate, understand you, and work on the things that need improving.
+
+You deserve honesty, not endless guessing.
+
+And I hope I can show you that through my actions, too. ♡`
+        },
+
+        {
+            title: "Open when you can't sleep ♡",
+
+            text: `It's late, isn't it?
+
+I hope you can put your thoughts aside for a little while.
+
+You don't need to figure everything out tonight.
+
+Let tomorrow come when it comes.
+
+I hope this little corner of the internet gives you a peaceful moment.
+
+If I could, I'd tell you goodnight and remind you that you made it through another day.
+
+Sleep well, Azka.
+
+Goodnight, my lovely. ☾`
+        }
+
+    ];
+
+
+    function openLetter(index) {
+
+        document.getElementById('modalTitle')
+            .textContent = letters[index].title;
+
+        document.getElementById('modalText')
+            .textContent = letters[index].text;
+
+        const modal = bootstrap.Modal.getOrCreateInstance(
+            document.getElementById('letterModal')
+        );
+
+        modal.show();
+
+    }
+
+
+    // ===================================
+    // 8. BACK TO TOP
+    // ===================================
+
+    const topButton = document.getElementById('topButton');
+
+    window.addEventListener('scroll', function() {
+
+        if (window.scrollY > 400) {
+
+            topButton.style.display = 'block';
+
+        } else {
+
+            topButton.style.display = 'none';
+
+        }
+
+    });
+
+
+    // ===================================
+    // 9. CURRENT YEAR
+    // ===================================
+
+    document.getElementById('year').textContent =
+        new Date().getFullYear();
+
+
+    // ===================================
+    // 10. MOBILE NAVBAR
+    // ===================================
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+
+        link.addEventListener('click', () => {
+
+            const menu = document.getElementById('menu');
+
+            if (menu.classList.contains('show')) {
+
+                bootstrap.Collapse
+                    .getOrCreateInstance(menu)
+                    .hide();
+
+            }
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
